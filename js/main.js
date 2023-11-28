@@ -132,9 +132,49 @@ function render() {
 
 
 //getRandom function for our comp player to select a move
+function getRandomRPS() {
+    //saves our object keys to an array variable
+    const rps = Object.keys(RPS_LOOKUP)
+    console.log('this is rps inside getRandomRPS: ', rps)
+
+    //rps is going to be an array, so we can use Math.random
+    const randomIndex = Math.floor(Math.random() * rps.length)
+    console.log('random index inside getRandomRPS: ', randomIndex)
+
+    return rps[randomIndex]
+}
+//need a getWinner function -> determine who wins - player, comp, or a tie
+function getWinner () {
+    //compare our results object keys and base the output of this function
+    //on whatever beats the other thing between player and comp
+    if (results.p === results.c) {return 't'}
+    // if the players choice beats the comps choice, declare player winner
+    //otherwise, if it's not a tie(handled above), the comp wins
+    return RPS_LOOKUP[results.p].beats === results.c ? 'p' : 'c'
+}
 
 //handleChoice -> for the player to select a move(this will be an event listener)
+// we'll use the innerText of our event target to determine what the move is
+function handleChoice(evt) {
+    //handle when the user clicks something that is not a button
+    if(evt.target.tagName !== 'BUTTON') { return }
 
-//need a getWinner function -> determine who wins - player, comp, or a tie
+    console.log('this is what was clicked: \n', evt.target.tagName)
+    //change results.p to whatever is selected(using innerText)
+    results.p = evt.target.innerText.toLowerCase()
+
+    //call the random selector for our comp player
+    results.c = getRandomRPS()
+
+    //check for a winner
+    winner = getWinner()
+    console.log('this is the winner ', winner)
+    //update scores accordingly
+    scores[winner] += 1
+    //render the changes to the DOM
+    render()
+}
+
 
 /*------ event listeners ------*/
+document.querySelector('main').addEventListener('click', handleChoice)
