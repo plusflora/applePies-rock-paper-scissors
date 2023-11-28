@@ -127,51 +127,47 @@ function render() {
         renderResults()
     })
 }
-
-//we'll do this by calling a couple other render functions through a countdown
-
-
-//getRandom function for our comp player to select a move
+// getRandom function for our computer player to select a move
 function getRandomRPS() {
-    //saves our object keys to an array variable
+    // saves our object keys to an array
     const rps = Object.keys(RPS_LOOKUP)
     console.log('this is rps inside getRandomRPS: ', rps)
 
-    //rps is going to be an array, so we can use Math.random
+    // rps is going to be an array, so we can use Math.Random
     const randomIndex = Math.floor(Math.random() * rps.length)
-    console.log('random index inside getRandomRPS: ', randomIndex)
+    console.log('random index inside getRandomRPS:', randomIndex)
 
     return rps[randomIndex]
 }
-//need a getWinner function -> determine who wins - player, comp, or a tie
-function getWinner () {
-    //compare our results object keys and base the output of this function
-    //on whatever beats the other thing between player and comp
-    if (results.p === results.c) {return 't'}
-    // if the players choice beats the comps choice, declare player winner
-    //otherwise, if it's not a tie(handled above), the comp wins
+
+// need a getWinner function -> determine who wins, player, computer or a tie
+function getWinner() {
+    // compare our results object keys and base the output of this function
+    // on whatever beats the other thing between player and computer
+    if (results.p === results.c) { return 't' }
+    // if the player's choice beats the computer choice, declare player the winner
+    // otherwise, if it's not a tie(handled above), the computer wins
     return RPS_LOOKUP[results.p].beats === results.c ? 'p' : 'c'
 }
 
-//handleChoice -> for the player to select a move(this will be an event listener)
-// we'll use the innerText of our event target to determine what the move is
+// handleChoice -> for the player to select a move(this will be an event listener)
+// we'll use the innertext of our event target to determine what the move is
 function handleChoice(evt) {
-    //handle when the user clicks something that is not a button
-    if(evt.target.tagName !== 'BUTTON') { return }
+    // handle when the user clicks something that is not a button
+    if (evt.target.tagName !== 'BUTTON') { return }
 
     console.log('this is what was clicked: \n', evt.target.tagName)
-    //change results.p to whatever is selected(using innerText)
+    // change results.p to whatever is selected(using innerText)
     results.p = evt.target.innerText.toLowerCase()
-
-    //call the random selector for our comp player
+    // call the random selector for our computer player
     results.c = getRandomRPS()
-
-    //check for a winner
+    // check for a winner
     winner = getWinner()
-    console.log('this is the winner ', winner)
-    //update scores accordingly
+    console.log('this is the winner', winner)
+    // update scores accordingly
     scores[winner] += 1
-    //render the changes to the DOM
+
+    // render the changes to the dom
     render()
 }
 
