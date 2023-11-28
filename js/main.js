@@ -4,25 +4,25 @@
 // (usually, they are the initial starting point of our elements)
 // (our starting values)
 
-// code the main render() function and our renderResults() function
+// code the main render() function & our renderResults()
 // (these are controllers that update the view based on user input)
 
-// code the click event listener, 
+// code the click event listener
 // code the win logic
-// update our renderResults() after we have win logic(to add a border to the winner)
+// update our renderResults after we have win logic(to add a border to the winner)
 
-//code a countdown timer
-//want to add some audio to the countdown to improve user experience
-
+// Code a countdown timer
+// want to add some Audio to the countdown to improve user experience
 
 /*------ constants ------*/
-// our audio file to play during countdown
-const AUDIO = new AUDIO()
-//list of choices
+// our audio file to play during the countdown
+const AUDIO = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-simple-countdown-922.mp3');
+
+// list of choices
 const RPS_LOOKUP = {
     r: {img: 'imgs/rock.png', beats: 's'},
     p: {img: 'imgs/paper.png', beats: 'r'},
-    s: {img: 'imgs/scissors.png', beats: 'p'},
+    s: {img: 'imgs/scissors.png', beats: 'p'}
 }
 
 /*------ cached element references ------*/
